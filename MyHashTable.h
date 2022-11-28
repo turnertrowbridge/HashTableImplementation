@@ -36,8 +36,4 @@ public:
     void remove(string key, int value);
 };
 
-
-
-
-
 #endif //HASHTABLEIMPLEMENTATION_MYHASHTABLE_H
