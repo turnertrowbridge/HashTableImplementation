@@ -7,7 +7,7 @@
 // hash the key
 int MyHashTable::hash(string key) const { // O(k) where k is key length = O(1)
     int hashValue = 0;
-    for (int i = 0; i < key.size(); i++){ // creates a unique hash based on character_size * position % size
+    for (int i = 0; i < key.size(); i++) { // creates a unique hash based on character_size * position % size
         hashValue = (hashValue + key[i] * i) % this->size;
     }
     return hashValue;
@@ -16,10 +16,10 @@ int MyHashTable::hash(string key) const { // O(k) where k is key length = O(1)
 
 // create an array of HashData of size 50
 MyHashTable::MyHashTable() { // O(50) = O(1)
-    hashTable = new HashData * [size];
+    hashTable = new HashData *[size];
 
     // initialize all the values in hashTable as nullptr
-    for(int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
         hashTable[i] = nullptr;
     }
 }
@@ -27,10 +27,10 @@ MyHashTable::MyHashTable() { // O(50) = O(1)
 
 // create an array of HashData of a size based on user input
 MyHashTable::MyHashTable(int size) { // O(s)
-    hashTable = new HashData * [size];
+    hashTable = new HashData *[size];
 
     // initialize all the values in hashTable as nullptr
-    for(int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
         hashTable[i] = nullptr;
     }
 }
@@ -38,17 +38,22 @@ MyHashTable::MyHashTable(int size) { // O(s)
 // set the value at a key in the hashtable
 void MyHashTable::set(string key, int value) { // O(1) with no collisions, O(n) with collisions
 
+    if(value < 0){
+        cout << "Error: value cannot be negative - " << key << " was not added" << endl;
+        return;
+    }
+
     int hashValue = hash(key);  // hash the key
 
     // if the hashValue spot in hashTable is taken and
     // the key is not already present in hashTable
     // increase the hashValue by 1
-    while(hashTable[hashValue] != nullptr && hashTable[hashValue]->key != key) {
+    while (hashTable[hashValue] != nullptr && hashTable[hashValue]->key != key) {
         hashValue++;
     }
 
-     // prevent memory leak if setting value at same key
-    if(hashTable[hashValue] != nullptr){
+    // prevent memory leak if setting value at same key
+    if (hashTable[hashValue] != nullptr) {
         delete hashTable[hashValue];
     }
 
@@ -63,12 +68,12 @@ int MyHashTable::get(string key) { // O(1) with no collisions, O(n) with collisi
     // if the hashValue spot in hashTable is taken and
     // the key is not already present in hashTable
     // increase the hashValue by 1
-    while(hashTable[hashValue] != nullptr && hashTable[hashValue]->key != key) {
+    while (hashTable[hashValue] != nullptr && hashTable[hashValue]->key != key) {
         hashValue++;
     }
 
     // if the HashData at this hashValue is a nullptr return -1 to indicate not found
-    if(hashTable[hashValue] == nullptr){
+    if (hashTable[hashValue] == nullptr) {
         return -1;
     }
 
@@ -79,20 +84,22 @@ int MyHashTable::get(string key) { // O(1) with no collisions, O(n) with collisi
 
 // adds value at a key to existing value at the same key if possible
 void MyHashTable::add(string key, int value) {  // O(1) with no collisions from add function
-                                                // O(n) with collisions from add function
+    // O(n) with collisions from add function
     int hashValue = hash(key);  // hash the key
 
     // if the hashValue spot in hashTable is taken and
     // the key is not already present in hashTable
     // increase the hashValue by 1
-    while(hashTable[hashValue] != nullptr && hashTable[hashValue]->key != key) {
+    while (hashTable[hashValue] != nullptr && hashTable[hashValue]->key != key) {
         hashValue++;
     }
 
 
     // add value to existing value instead of replacing
-    if(hashTable[hashValue] != nullptr){
-        hashTable[hashValue]->value += value;
+    if (hashTable[hashValue] != nullptr) {
+        if ((hashTable[hashValue]->value + value) > -1) {
+            hashTable[hashValue]->value += value;
+        } else cout << "Error: value cannot be negative - value was not changed" << endl;
         return;
     }
 

@@ -11,6 +11,7 @@ int main() {
     shoppingCart.set("watermelon", 1);   // sets watermelon to 1
     shoppingCart.set("watermelon", 15);  // overwrites watermelon to 15
     shoppingCart.add("watermelon", 5);   // add 5 watermelons, 20 watermelons total
+    shoppingCart.set("peach", -5);       // tries to add -5 peaches and gets error
 
     cout << "Cart has " << shoppingCart.get("apple") << " apples" << endl;
     cout << "Cart has " << shoppingCart.get("orange") << " oranges" << endl;
@@ -23,6 +24,9 @@ int main() {
 
     shoppingCart.remove("watermelon", 4); // removes 4 watermelons, 16 watermelons total
     cout << "Cart has " << shoppingCart.get("watermelon") << " watermelons" << endl;
+
+    shoppingCart.remove("watermelon", 50000); // attempts to remove an invalid amount of watermelons and gets error
+    cout << "Cart has " << shoppingCart.get("watermelon") << " watermelons" << endl; // still 16 watermelons total
 
 
 
