@@ -4,6 +4,12 @@
 
 #include "MyHashTable.h"
 
+
+HashData::HashData(string key, int value){
+this->key = key;
+this->value = value;
+}
+
 // hash the key
 int MyHashTable::hash(string key) const { // O(k) where k is key length = O(1)
     int hashValue = 0;
@@ -120,6 +126,7 @@ void MyHashTable::removeAll(string key) { // O(1) with no collisions, O(n) with 
     cout << "Successfully removed " << key << endl;
 
 }
+
 
 void MyHashTable::remove(string key, int value) { // O(1) with no collisions, O(n) with collisions
     if (get(key) == -1) {

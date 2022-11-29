@@ -10,15 +10,11 @@
 using namespace std;
 
 // create a data entry for hash table
-class HashData{
+class HashData {
 public:
     string key;
     int value;
-
-    HashData(string key, int value){
-        this->key = key;
-        this->value = value;
-    }
+    HashData(string key, int value);
 };
 
 class MyHashTable{
