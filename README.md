@@ -6,4 +6,4 @@ Showcased by creating a shopping cart that is able to
 - get number of items for an item in the cart (using key)
 - add more of an item (using key and value)
 - completely remove an item (using key)
-- remove items from an existing key (using key, value)
+- remove a number of items from an existing item (using key, value)
